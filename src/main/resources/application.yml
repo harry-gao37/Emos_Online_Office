@@ -1,0 +1,93 @@
+server:
+  tomcat:
+    uri-encoding: utf-8
+    threads:
+      max: 200
+      min-spare: 30
+    connection-timeout: 5000ms
+  port: 8080
+  servlet:
+    context-path: /emos
+
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/online_collaborative?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: abc123456 #need change
+      initial-size: 8
+      max-active: 16
+      min-idle: 8
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: abc123456
+    jedis:
+      pool:
+        max-active: 1000
+        max-wait: -1ms
+        max-idle: 16
+        min-idle: 8
+    timeout: 500000
+
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: emos
+      authentication-database: admin
+      username: root
+      password: abc123456
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    username: herry-gao@163.com
+    password: xZ14332604
+
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.yifu.emos.db.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    root: info
+    com.yifu.emos.db.dao: warn
+  pattern:
+    console: "%d{HH:mm:ss}  %-5level  %msg%n"
+
+
+emos:
+  jwt:
+    secret: abc123456
+    expire: 5
+    cache-expire: 10
+  face:
+    createFaceModelUrl: http://192.168.43.82:3000/create_face_model
+    checkinUrl: http://192.168.43.82:3000/checkin
+  email:
+    system: herry-gao@163.com
+    hr: harry.yifu.gao@gmail.com
+  image-folder: D:/emos/images
+  code: 31C498A31945626D
+
+
+wx:
+  app-id: wx2011905b81941928
+  app-secret: 05541eafd6eb3bcc78fbc6809d399eda
+
+shiro:
+  filter-rules:
+    - /swagger-ui/index.html==>anon
